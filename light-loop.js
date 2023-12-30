@@ -7,16 +7,19 @@ const { lights } = require("./config.js");
 async function send_color(light_data, color, max_brightness, debug) {
   const brightness = (color[0] + color[1] + color[2]) / 3 / 255;
   let body = { entity_id: `light.${light_data.id}`, transition: 0.18 };
+  if (debug) {
+    console.log("sending", body);
+  }
 
   if (light_data.type == "rgb") {
     body.rgb_color = color;
     body.brightness = Math.floor(
-      Math.max(...latest_color.get()) * max_brightness,
+      Math.max(...latest_color.get()) * max_brightness
     );
   } else {
     // body.brightness = Math.max(1, Math.round(255 * brightness)); // 0 seems to turn it off and make it slower to react
     body.brightness = Math.floor(
-      Math.max(...latest_color.get()) * max_brightness,
+      Math.max(...latest_color.get()) * max_brightness
     );
   }
 
