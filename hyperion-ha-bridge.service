@@ -1,0 +1,18 @@
+[Unit]
+Description=Let Hyperion control HomeAssistant lights
+Documentation=https://git.kuba-orlik.name/kuba/hyperion-home-assistant-bridge
+Requisite=network.target
+Wants=network-online.target
+After=network-online.target
+After=systemd-resolved.service
+
+[Service]
+Environment="HA_TOKEN=thetoken12312312"
+ExecStart=node /root/hyperion-ha/index.js
+TimeoutStopSec=5
+KillMode=mixed
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
