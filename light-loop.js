@@ -17,14 +17,10 @@ async function send_color(light_data, color, max_brightness, debug) {
 
   if (light_data.type == "rgb") {
     body.rgb_color = color;
-    body.brightness = Math.floor(
-      Math.max(...latest_color.get()) * max_brightness
-    );
+    body.brightness = Math.floor(Math.max(...color) * max_brightness);
   } else {
     // body.brightness = Math.max(1, Math.round(255 * brightness)); // 0 seems to turn it off and make it slower to react
-    body.brightness = Math.floor(
-      Math.max(...latest_color.get()) * max_brightness
-    );
+    body.brightness = Math.floor(Math.max(...color) * max_brightness);
   }
 
   if (debug) {
