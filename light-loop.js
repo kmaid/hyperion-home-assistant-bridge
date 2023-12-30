@@ -7,12 +7,11 @@ const { lights } = require("./config.js");
 async function send_color(light_data, color, max_brightness, debug) {
   const brightness = (color[0] + color[1] + color[2]) / 3 / 255;
   if (debug) {
-    console.log(
-      "sum",
-      color[0] + color[1] + color[2],
-      "brightness",
-      brightness
-    );
+    console.log({
+      light_data,
+      sum: color[0] + color[1] + color[2],
+      brightness,
+    });
   }
   let body = { entity_id: `light.${light_data.id}`, transition: 0.18 };
   if (debug) {
