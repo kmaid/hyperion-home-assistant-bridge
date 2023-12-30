@@ -14,9 +14,6 @@ async function send_color(light_data, color, max_brightness, debug) {
     });
   }
   let body = { entity_id: `light.${light_data.id}`, transition: 0.18 };
-  if (debug) {
-    console.log("sending", body);
-  }
 
   if (light_data.type == "rgb") {
     body.rgb_color = color;
@@ -28,6 +25,10 @@ async function send_color(light_data, color, max_brightness, debug) {
     body.brightness = Math.floor(
       Math.max(...latest_color.get()) * max_brightness
     );
+  }
+
+  if (debug) {
+    console.log("sending", body);
   }
 
   return fetch(`${HA_URL}/api/services/light/turn_on`, {
