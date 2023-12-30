@@ -47,7 +47,7 @@ module.exports = async function light_loop(light_index, max_brightness, debug) {
     const current_color = latest_color.get().slice(from, to);
     let is_changed = false;
     for (i in last_color) {
-      if (last_color[i] != current_color[i]) {
+      if (last_color.get()[i] != current_color[i]) {
         is_changed = true;
         break;
       }
