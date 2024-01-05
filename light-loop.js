@@ -42,12 +42,14 @@ async function send_color(light_data, color, max_brightness, debug) {
 }
 
 module.exports = async function light_loop(light_index, max_brightness, debug) {
+  light_index = parseInt(light_index)
   let last_time = 0;
   let last_color = [0, 0, 0];
   while (true) {
     last_time = Date.now();
     const from = 3 * light_index;
-    const to = 3 * (light_index + 1);
+      const to = 3 * (light_index + 1);
+      conso
     const current_color = latest_color.get().slice(from, to);
     let is_changed = false;
     for (i in last_color) {
