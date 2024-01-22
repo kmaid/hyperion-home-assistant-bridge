@@ -1,10 +1,16 @@
-const { HA_URL, TOKEN } = require("./env.js");
+const { HA_URL, TOKEN, TRANSITION_DURATION_DIVIDER } = require("./env.js");
 
 const { sleep } = require("./util.js");
 const latest_color = require("./latest_color.js");
 const { lights } = require("./config.js");
 
-async function send_color(light_data, color, max_brightness, debug) {
+async function send_color(
+  light_data,
+  color,
+  max_brightness,
+  duration = 0.18,
+  debug = false
+) {
   const brightness = (color[0] + color[1] + color[2]) / 3 / 255;
   if (debug) {
     console.log({
@@ -43,7 +49,7 @@ async function send_color(light_data, color, max_brightness, debug) {
 
 module.exports = async function light_loop(light_index, max_brightness, debug) {
   light_index = parseInt(light_index);
-  let last_time = 0;
+  let duration = 0.18; // 180ms - the default for start, will be adjusted later based on how long did the http request take
   let last_color = [0, 0, 0];
   while (true) {
     last_time = Date.now();
@@ -58,12 +64,22 @@ module.exports = async function light_loop(light_index, max_brightness, debug) {
       }
     }
     if (is_changed) {
+      if (debug) {
+        console.time(`light ${light_index} http request took`);
+      }
+      const before = Date.now();
       await send_color(
         lights[light_index],
         current_color,
         max_brightness,
+        duration,
         debug
       );
+      const after = Date.now();
+      duration = (after - before) / 1000 / TRANSITION_DURATION_DIVIDER;
+      if (debug) {
+        console.timeEnd(`light ${light_index} http request took`);
+      }
       last_color = current_color;
     } else {
       await sleep(10);
