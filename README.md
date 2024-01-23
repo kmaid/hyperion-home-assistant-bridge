@@ -16,3 +16,9 @@
    file;
 
 5. Run `HA_TOKEN=your_token12341234123432 node .`
+
+To setup the systemd unit to make this run in the background:
+
+1. Adjust the path in `ExecStart` part of `hyperion-ha-bridge.service` file in this repo;
+2. Copy this file to `/etc/systemd/system/ha-bridge.service`
+3. Run `systemctl daemon-reload && systemctl enable --now ha-bridge`
