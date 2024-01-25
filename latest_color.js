@@ -15,6 +15,10 @@ module.exports = {
   },
 
   set: (new_color) => {
+    // because sometimes protobuf disconnects and I don't know why
+    if (new_color.every((n) => n == 0)) {
+      return;
+    }
     latest_color = new_color;
   },
 };
