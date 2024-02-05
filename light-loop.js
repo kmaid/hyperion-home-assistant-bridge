@@ -2,7 +2,8 @@ const { HA_URL, TOKEN, TRANSITION_DURATION_DIVIDER } = require("./env.js");
 
 const { sleep } = require("./util.js");
 const latest_color = require("./latest_color.js");
-const { lights } = require("./config.js");
+const { getConfig } = require("./get-config.js");
+const { lights } = getConfig();
 
 async function send_color(
   light_data,

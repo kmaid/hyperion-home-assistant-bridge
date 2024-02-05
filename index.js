@@ -1,7 +1,8 @@
 const dgram = require("node:dgram");
 const server = dgram.createSocket("udp4");
+const { getConfig } = require("./get-config.js");
 
-const { lights } = require("./config.js");
+const { lights } = getConfig();
 const light_loop = require("./light-loop.js");
 const latest_color = require("./latest_color.js");
 const { TOKEN, PORT } = require("./env.js");
@@ -16,12 +17,12 @@ const max_brightness = 0.8;
 
 if (!TOKEN) {
   throw new Error(
-    "Provide the Home Assistant Long Lived Token as a HA_TOKEN environment variable. Go to /profile in Home Assistant and scroll down.",
+    "Provide the Home Assistant Long Lived Token as a HA_TOKEN environment variable. Go to /profile in Home Assistant and scroll down."
   );
 }
 
 console.log(
-  `Remember to set the Hyperion output controller type to UDPRAW and set it to output ${lights.length} lights`,
+  `Remember to set the Hyperion output controller type to UDPRAW and set it to output ${lights.length} lights`
 );
 
 server.on("message", (msg, rinfo) => {

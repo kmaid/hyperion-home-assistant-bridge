@@ -1,4 +1,6 @@
-const { lights } = require("./config.js");
+const { getConfig } = require("./get-config.js");
+
+const { lights } = getConfig();
 
 let latest_color = [];
 
