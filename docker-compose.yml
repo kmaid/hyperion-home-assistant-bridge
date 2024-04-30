@@ -1,0 +1,12 @@
+version: "3"
+services:
+  hyperion-bridge:
+    build: .
+    pull_policy: build
+    container_name: hyperion-bridge
+    restart: unless-stopped
+    environment:
+      - HA_URL=${HA_URL}
+      - HA_TOKEN=${HA_TOKEN}
+    ports:
+      - "41234:41234"
