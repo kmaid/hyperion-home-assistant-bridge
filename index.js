@@ -12,7 +12,7 @@ server.on("error", (err) => {
   server.close();
 });
 
-const debug = false;
+const debug = true;
 const max_brightness = 0.8;
 
 if (!TOKEN) {

@@ -1,8 +1,8 @@
 module.exports = {
   lights: [
-    { id: "light.living_room", type: "rgb" },
+    { id: "living_room", type: "rgb" },
     {
-      id: "light.floor_lamp",
+      id: "floor_lamp",
       type: "rgb",
     },
   ],

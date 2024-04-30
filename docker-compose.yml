@@ -9,4 +9,4 @@ services:
       - HA_URL=${HA_URL}
       - HA_TOKEN=${HA_TOKEN}
     ports:
-      - "41234:41234"
+      - "41234:41234/udp"
